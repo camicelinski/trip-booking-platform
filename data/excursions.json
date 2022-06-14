@@ -1,4 +1,26 @@
 {
-    "excursions": [],
-    "orders": []
+  "excursions": [
+    {
+      "title": "Sandomierz",
+      "description": "Rynek i Wawoz",
+      "adultPrice": "70",
+      "childPrice": "40",
+      "id": 5
+    },
+    {
+      "title": "Zakopane",
+      "description": "Gory, Gobalowka i kuchnia regionalna",
+      "adultPrice": "86",
+      "childPrice": "40",
+      "id": 8
+    },
+    {
+      "title": "Warszawa",
+      "description": "Zamek Krolewski, Starowka, Muzeum Narodowy i Palac Kultury i Nauki",
+      "adultPrice": "90",
+      "childPrice": "60",
+      "id": 9
+    }
+  ],
+  "orders": []
 }
