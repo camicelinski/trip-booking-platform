@@ -27,6 +27,13 @@
       "adultPrice": "180",
       "childPrice": "80",
       "id": 13
+    },
+    {
+      "title": "Zakopane",
+      "description": "Wspinaczka, Morskie Oko, Gobalowka, kuchnia regionalna i day spa",
+      "adultPrice": "90",
+      "childPrice": "35",
+      "id": 14
     }
   ],
   "orders": [

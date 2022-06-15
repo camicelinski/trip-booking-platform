@@ -4,6 +4,7 @@ import ExcursionsAPI from './ExcursionsAPI';
 
 console.log('client');
 
+const api = new ExcursionsAPI();
 const urlExcursions = 'http://localhost:3000/excursions';
 const urlOrders = 'http://localhost:3000/orders';
 
@@ -22,11 +23,7 @@ function init() {
 }
 
 function loadExcursions() {
-    fetch(urlExcursions)
-        .then(resp => {
-            if(resp.ok) { return resp.json() }
-            return Promise.reject(resp);
-        })
+    api.loadExcursionsData()
         .then(data => {
             console.log(data);
             showExcursions(data);

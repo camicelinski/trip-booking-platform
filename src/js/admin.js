@@ -4,6 +4,7 @@ import ExcursionsAPI from './ExcursionsAPI';
 
 console.log('admin');
 
+const api = new ExcursionsAPI();
 const urlExcursions = 'http://localhost:3000/excursions';
 
 document.addEventListener('DOMContentLoaded', init);
@@ -18,11 +19,7 @@ function init() {
 }
 
 function loadExcursions() {
-    fetch(urlExcursions)
-        .then(resp => {
-            if(resp.ok) { return resp.json() }
-            return Promise.reject(resp);
-        })
+    api.loadExcursionsData()
         .then(data => {
             console.log(data);
             showExcursions(data);
@@ -46,13 +43,14 @@ function addExcursions() {
         }; 
         console.log(data)
 
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {'Content-Type': 'application/json'}
-        };
-        fetch(urlExcursions, options)
-            .then(resp => console.log(resp))
+        //const options = {
+        //    method: 'POST',
+        //    body: JSON.stringify(data),
+        //    headers: {'Content-Type': 'application/json'}
+        //};
+        //fetch(urlExcursions, options)
+        //    .then(resp => console.log(resp))
+        api.addExcursionsData(data)    
             .catch(err => console.error(err))
             .finally(loadExcursions);
     });   
@@ -97,17 +95,16 @@ function removeExcursions() {
     const ulEl = document.querySelector('.panel__excursions');
     ulEl.addEventListener('click', e => {
         e.preventDefault();
-        const targetEl = e.target;
-        const liEl = targetEl.parentElement.parentElement.parentElement
+        const targetEl = e.target;        
         console.log(targetEl)
-        console.log(liEl)
-
-        const id = liEl.dataset.id;
-        console.log(id)
-        const options = { method: 'DELETE' };
+        
+        //const options = { method: 'DELETE' };
         if(targetEl.value === 'usuń') {
-            fetch(`${urlExcursions}/${id}`, options)
-                .then(resp => console.log(resp))
+            const liEl = targetEl.parentElement.parentElement.parentElement
+            const id = liEl.dataset.id;
+            //fetch(`${urlExcursions}/${id}`, options)
+            api.removeExcursionsData(id)
+                //.then(resp => console.log(resp))
                 .catch(err => console.error(err))
                 .finally(loadExcursions);
         }       
@@ -137,13 +134,14 @@ function updateExcursions() {
                     adultPrice: editableList[2].innerText,
                     childPrice: editableList[3].innerText,
                 }
-                const options = {
-                    method: 'PUT',
-                    body: JSON.stringify(data),
-                    headers: {'Content-Type': 'application/json'}
-                };
-                fetch(`${urlExcursions}/${id}`, options)
-                    .then(resp => console.log(resp))
+                //const options = {
+                //    method: 'PUT',
+                //    body: JSON.stringify(data),
+                //    headers: {'Content-Type': 'application/json'}
+                //};
+                //fetch(`${urlExcursions}/${id}`, options)
+                //    .then(resp => console.log(resp))
+                api.updateExcursionsData(id, data)
                     .catch(err => console.error(err))
                     .finally( () => {
                         targetEl.value = 'edytuj';
