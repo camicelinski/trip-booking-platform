@@ -1,13 +1,6 @@
 {
   "excursions": [
     {
-      "title": "Sandomierz",
-      "description": "Rynek i Wawoz",
-      "adultPrice": "70",
-      "childPrice": "40",
-      "id": 5
-    },
-    {
       "title": "Zakopane",
       "description": "Gory, Gobalowka i kuchnia regionalna",
       "adultPrice": "86",
@@ -16,11 +9,53 @@
     },
     {
       "title": "Warszawa",
-      "description": "Zamek Krolewski, Starowka, Muzeum Narodowy i Palac Kultury i Nauki",
+      "description": "Zamek Krolewski, Starowka, Muzeum Narodowy i Palac Kultury i Nauki, Lazienki",
+      "adultPrice": "120",
+      "childPrice": "60",
+      "id": 9
+    },
+    {
+      "title": "Lublin",
+      "description": "Rynek i okolicy, Wolka Lancuchowska",
+      "adultPrice": "60",
+      "childPrice": "25",
+      "id": 10
+    },
+    {
+      "title": "Sandomierz",
+      "description": "Rynek, Wisla, Wawoz",
       "adultPrice": "90",
+      "childPrice": "30",
+      "id": 12
+    }
+  ],
+  "orders": [
+    {
+      "title": "Zakopane",
+      "totalPrice": 212,
+      "adultNumber": "2",
+      "adultPrice": "86",
+      "childNumber": "1",
+      "childPrice": "40",
+      "id": 7
+    },
+    {
+      "title": "Lublin",
+      "totalPrice": 205,
+      "adultNumber": "3",
+      "adultPrice": "60",
+      "childNumber": "1",
+      "childPrice": "25",
+      "id": 8
+    },
+    {
+      "title": "Warszawa",
+      "totalPrice": 360,
+      "adultNumber": "2",
+      "adultPrice": "120",
+      "childNumber": "2",
       "childPrice": "60",
       "id": 9
     }
-  ],
-  "orders": []
+  ]
 }
