@@ -5,7 +5,7 @@ import ExcursionsAPI from './ExcursionsAPI';
 console.log('admin');
 
 const api = new ExcursionsAPI();
-const urlExcursions = 'http://localhost:3000/excursions';
+//const urlExcursions = 'http://localhost:3000/excursions';
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -28,7 +28,7 @@ function loadExcursions() {
 }
 
 function addExcursions() {
-    const ulEl = document.querySelector('.panel__excursions');
+    //const ulEl = document.querySelector('.panel__excursions');
 
     const formEl = document.querySelector('.form');
     formEl.addEventListener('submit', e => {
@@ -56,43 +56,47 @@ function addExcursions() {
     });   
 }
 
-function showExcursions(excursionsArr) {
-    const ulEl = document.querySelector('.panel__excursions');
+function showExcursions(excursionsList) {
+    const ulEl = findUl();
     const liPrototype = ulEl.querySelector('.excursions__item--prototype');
-    const liList = ulEl.querySelectorAll('.excursions__item');
-    console.log(liList)
-    const liListArr = Array.prototype.slice.call(liList);
-    liListArr.splice(0, 1);
-    console.log(liListArr)
-    liListArr.forEach(item => ulEl.removeChild(item));
 
-    excursionsArr.forEach(item => {
-        const liEl = liPrototype.cloneNode(true);
-        liEl.classList.remove('excursions__item--prototype');
+    clearUl(ulEl);
+    //const liList = ulEl.querySelectorAll('.excursions__item');
+    //console.log(liList)
+    //const liListArr = Array.prototype.slice.call(liList);
+    //liListArr.splice(0, 1);
+    //console.log(liListArr)
+    //liListArr.forEach(item => ulEl.removeChild(item));
+
+    excursionsList.forEach(item => {
+        const liEl = createExcursionLi(item, liPrototype);
+        //liPrototype.cloneNode(true);
+        //liEl.classList.remove('excursions__item--prototype');
     
-        const liTitle = liEl.querySelector('.excursions__title');
-        const liDescription = liEl.querySelector('.excursions__description');
-        const liPrice = liEl.querySelectorAll('.excursions__price');
-        const liAdultPrice = liPrice[0];
-        const liChildPrice = liPrice[1];
+        //const liTitle = liEl.querySelector('.excursions__title');
+        //const liDescription = liEl.querySelector('.excursions__description');
+        //const liPrice = liEl.querySelectorAll('.excursions__price');
+        //const liAdultPrice = liPrice[0];
+        //const liChildPrice = liPrice[1];
     
-        liTitle.innerText = item.title;
-        liDescription.innerText = item.description;
-        liAdultPrice.innerText = item.adultPrice;
-        liChildPrice.innerText = item.childPrice;
-        liEl.dataset.id = item.id;
+        //liTitle.innerText = item.title;
+        //liDescription.innerText = item.description;
+        //liAdultPrice.innerText = item.adultPrice;
+        //liChildPrice.innerText = item.childPrice;
+        //liEl.dataset.id = item.id;
     
         ulEl.appendChild(liEl)               
         
         const formEl = document.querySelector('.form');
-        const formFields = formEl.querySelectorAll('.form__field');
-        console.log(formFields);
-        formFields.forEach(field => field.value = '');
+        clearFormFields(formEl);
+        //const formFields = formEl.querySelectorAll('.form__field');
+        //console.log(formFields);
+        //formFields.forEach(field => field.value = '');
     })
 }
 
 function removeExcursions() {
-    const ulEl = document.querySelector('.panel__excursions');
+    const ulEl = findUl();
     ulEl.addEventListener('click', e => {
         e.preventDefault();
         const targetEl = e.target;        
@@ -100,8 +104,10 @@ function removeExcursions() {
         
         //const options = { method: 'DELETE' };
         if(targetEl.value === 'usuń') {
-            const liEl = targetEl.parentElement.parentElement.parentElement
-            const id = liEl.dataset.id;
+            const liEl = findLi(targetEl);
+            const id = findId(liEl);
+            //const liEl = targetEl.parentElement.parentElement.parentElement
+            //const id = liEl.dataset.id;
             //fetch(`${urlExcursions}/${id}`, options)
             api.removeExcursionsData(id)
                 //.then(resp => console.log(resp))
@@ -112,22 +118,25 @@ function removeExcursions() {
 }   
 
 function updateExcursions() {
-    const ulEl = document.querySelector('.panel__excursions');
+    const ulEl = findUl();
     ulEl.addEventListener('click', e => {
         e.preventDefault();
         const targetEl = e.target;
-        const liEl = targetEl.parentElement.parentElement.parentElement
+        const liEl = findLi(targetEl);
+        //targetEl.parentElement.parentElement.parentElement
         console.log(targetEl)
         console.log(liEl)
         
-        if(targetEl.value === 'edytuj' || targetEl.value === 'zapisz') {
+        if(targetEl.value === 'edytuj' || targetEl.value === 'zapisz') {            
             const editableList = liEl.querySelectorAll('.excursions--editable')
-            console.log(editableList)
-            const isEditable = [...editableList].every(
-                item => item.isContentEditable
-            );
+            const isEditable = isItemEditable(editableList);
+            //console.log(editableList)
+            //const isEditable = [...editableList].every(
+            //    item => item.isContentEditable
+            //);
             if(isEditable) {
-                const id = liEl.dataset.id;
+                const id = findId(liEl);
+                //const id = liEl.dataset.id;
                 const data = {
                     title: editableList[0].innerText, 
                     description: editableList[1].innerText,
@@ -158,3 +167,60 @@ function updateExcursions() {
         }
     });
 }   
+
+function createExcursionLi(item, liPrototype) {
+        const liEl = liPrototype.cloneNode(true);
+        liEl.classList.remove('excursions__item--prototype');
+    
+        const liTitle = liEl.querySelector('.excursions__title');
+        const liDescription = liEl.querySelector('.excursions__description');
+        const liPrice = liEl.querySelectorAll('.excursions__price');
+        const liAdultPrice = liPrice[0];
+        const liChildPrice = liPrice[1];
+    
+        liTitle.innerText = item.title;
+        liDescription.innerText = item.description;
+        liAdultPrice.innerText = item.adultPrice;
+        liChildPrice.innerText = item.childPrice;
+        liEl.dataset.id = item.id;
+
+        return liEl;
+}
+
+function clearUl(ulEl) {
+    const liList = ulEl.querySelectorAll('li');
+    console.log(liList)
+    const liListArr = Array.prototype.slice.call(liList);
+    liListArr.splice(0, 1);
+    console.log(liListArr)
+    liListArr.forEach(item => ulEl.removeChild(item));
+}
+
+function clearFormFields(formEl) {
+    const formFields = formEl.querySelectorAll('.form__field');
+    console.log(formFields);
+    formFields.forEach(field => field.value = '');
+}
+
+function findUl() {
+    return document.querySelector('.panel__excursions')
+}
+
+function findLi(targetEl) {
+    const liEl = targetEl.parentElement.parentElement.parentElement;
+    return liEl;
+}
+
+function findId(liEl) {
+    const id = liEl.dataset.id;
+    return id;
+}
+
+function isItemEditable(editableList) {
+    console.log(editableList)
+    const isEditable = [...editableList].every(
+         item => item.isContentEditable
+    );
+
+    return isEditable;
+}

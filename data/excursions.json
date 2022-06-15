@@ -25,14 +25,14 @@
       "title": "Krakow",
       "description": "Wizyta w Wieliczka, Wawel, Mariacki, Rynek i duzo wiecej",
       "adultPrice": "180",
-      "childPrice": "80",
+      "childPrice": "90",
       "id": 13
     },
     {
       "title": "Zakopane",
-      "description": "Wspinaczka, Morskie Oko, Gobalowka, kuchnia regionalna i day spa",
-      "adultPrice": "90",
-      "childPrice": "35",
+      "description": "Wspinaczka, Morskie Oko, Gobalowka, kuchnia regionalna, day spa i zdjecia z goralskim pieskiem",
+      "adultPrice": "100",
+      "childPrice": "60",
       "id": 14
     }
   ],
