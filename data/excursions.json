@@ -10,8 +10,8 @@
     {
       "title": "Lublin",
       "description": "Rynek i okolicy, Wolka Lancuchowska, gastronomia regionalna",
-      "adultPrice": "60",
-      "childPrice": "25",
+      "adultPrice": "50",
+      "childPrice": "30",
       "id": 10
     },
     {
@@ -34,96 +34,59 @@
       "adultPrice": "100",
       "childPrice": "60",
       "id": 14
+    },
+    {
+      "title": "Brazylia",
+      "description": "Rio de Janeiro, Sao Paulo, Foz do Iguacu e praias",
+      "adultPrice": "7000",
+      "childPrice": "4000",
+      "id": 15
     }
   ],
   "orders": [
     {
       "name": "Camila Montes Celinski",
       "email": "meuceuestrelado@gmail.com",
-      "totalPrice": "470",
+      "totalPrice": "11300",
       "date": "6/15/2022",
-      "time": "1:26:31 PM",
+      "time": "11:27:35 PM",
       "items": [
         {
-          "title": "Lublin",
-          "totalPrice": 170,
-          "adultNumber": "2",
-          "adultPrice": "60",
-          "childNumber": "2",
-          "childPrice": "25"
+          "title": "Brazylia",
+          "totalPrice": 11000,
+          "adultNumber": 1,
+          "adultPrice": "7000",
+          "childNumber": 1,
+          "childPrice": "4000"
         },
         {
           "title": "Warszawa",
           "totalPrice": 300,
-          "adultNumber": "2",
+          "adultNumber": 2,
           "adultPrice": "120",
-          "childNumber": "1",
+          "childNumber": 1,
           "childPrice": "60"
         }
       ],
       "id": 1
     },
     {
-      "name": "Paulo Souza",
-      "email": "paulo@gmail.com",
-      "totalPrice": "472",
+      "name": "Mateusz Swajda",
+      "email": "swajda.m@gmail.com",
+      "totalPrice": "180",
       "date": "6/15/2022",
-      "time": "1:40:38 PM",
+      "time": "11:27:53 PM",
       "items": [
         {
-          "title": "Warszawa",
-          "totalPrice": 300,
-          "adultNumber": "2",
-          "adultPrice": "120",
-          "childNumber": "1",
-          "childPrice": "60"
-        },
-        {
-          "title": "Zakopane",
-          "totalPrice": 172,
-          "adultNumber": "2",
-          "adultPrice": "86",
-          "childNumber": "",
-          "childPrice": "40"
+          "title": "Sandomierz",
+          "totalPrice": 180,
+          "adultNumber": 2,
+          "adultPrice": "90",
+          "childNumber": 0,
+          "childPrice": "30"
         }
       ],
       "id": 2
-    },
-    {
-      "name": "Ewa Swajda",
-      "email": "ewa@gmail.com",
-      "totalPrice": "290",
-      "date": "6/15/2022",
-      "time": "1:41:25 PM",
-      "items": [
-        {
-          "title": "Lublin",
-          "totalPrice": 290,
-          "adultNumber": "4",
-          "adultPrice": "60",
-          "childNumber": "2",
-          "childPrice": "25"
-        }
-      ],
-      "id": 3
-    },
-    {
-      "name": "Armando Leao",
-      "email": "armando@hotmail.com",
-      "totalPrice": "300",
-      "date": "6/15/2022",
-      "time": "1:42:03 PM",
-      "items": [
-        {
-          "title": "Warszawa",
-          "totalPrice": 300,
-          "adultNumber": "2",
-          "adultPrice": "120",
-          "childNumber": "1",
-          "childPrice": "60"
-        }
-      ],
-      "id": 4
     }
   ]
 }

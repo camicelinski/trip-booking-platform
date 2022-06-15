@@ -5,8 +5,6 @@ import ExcursionsAPI from './ExcursionsAPI';
 console.log('client');
 
 const api = new ExcursionsAPI();
-const urlExcursions = 'http://localhost:3000/excursions';
-const urlOrders = 'http://localhost:3000/orders';
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -31,164 +29,78 @@ function loadExcursions() {
         .catch(err => console.error(err));
 }
 
-function showExcursions(excursionsArr) {
-    console.log(excursionsArr)
-    const ulEl = document.querySelector('.panel__excursions');
+function showExcursions(excursionsList) {
+    const ulEl = findUl('.panel__excursions');
     const liPrototype = ulEl.querySelector('.excursions__item--prototype');
-    //const liList = ulEl.querySelectorAll('.excursions__item');
-    //console.log(liList)
-    //const liListArr = Array.prototype.slice.call(liList);
-    //liListArr.splice(0, 1);
-    //console.log(liListArr)
-    //liListArr.forEach(item => ulEl.removeChild(item));
 
-    excursionsArr.forEach(item => {
-        const liEl = liPrototype.cloneNode(true);
-        liEl.classList.remove('excursions__item--prototype');
+    clearUl(ulEl);
     
-        const liTitle = liEl.querySelector('.excursions__title');
-        const liDescription = liEl.querySelector('.excursions__description');
-        const liPrice = liEl.querySelectorAll('.excursions__price');
-        const liAdultPrice = liPrice[0];
-        const liChildPrice = liPrice[1];
-    
-        liTitle.innerText = item.title;
-        liDescription.innerText = item.description;
-        liAdultPrice.innerText = item.adultPrice;
-        liChildPrice.innerText = item.childPrice;
-        liEl.dataset.id = item.id;
-    
-        ulEl.appendChild(liEl)               
-        
-        //const formEl = document.querySelector('.form');
-        //const formFields = formEl.querySelectorAll('.//form__field');
-        //console.log(formFields);
-        //formFields.forEach(field => field.value = '');
+    excursionsList.forEach(item => {
+        const liEl = createExcursionLi(item, liPrototype);    
+        ulEl.appendChild(liEl)                       
     })
 }
 
 function addItemToBasket(basket) {
-    const ulEl = document.querySelector('.panel__excursions');
+    const ulEl = findUl('.panel__excursions');
     ulEl.addEventListener('submit', function(e) {
         e.preventDefault()        
 
-        const liEl = e.target.parentElement;
-        const liTitle = liEl.querySelector('.excursions__title');
-        const liPrice = liEl.querySelectorAll('.excursions__price');
-        const liAdultPrice = liPrice[0];
-        const liChildPrice = liPrice[1];
-        const adultPrice = liAdultPrice.innerText;
-        const childPrice = liChildPrice.innerText;
-        //liEl.dataset.id = item.id;
-
-        console.log(e.target) //form
-        console.log(e.currentTarget)
-
-        console.log(e.target.elements)
-        const {adults, children} = e.target.elements;
-        
-        const data = {
-            title: liTitle.innerText,  
-            totalPrice: (adults.value*adultPrice) + (children.value*childPrice),
-            adultNumber: Number(adults.value),
-            adultPrice: adultPrice,
-            childNumber: Number(children.value),
-            childPrice: childPrice,
-        }
-        console.log(data)
+        const targetEl= e.target;
+                
+        const data = createItemData(targetEl);
 
         clearErrors()
         let errors = []
-        errors = validateExcursionsForm(e.target.elements, data)
+        errors = validateExcursionsForm(targetEl.elements, data)
         
-        const excursionTitle = liTitle.innerText
-        console.log(excursionTitle)
+        const excursionTitle = data.title
         const excursionIsInSummary = basket.findIndex(item => {
             return item.title === excursionTitle;
         });      
-        console.log(excursionIsInSummary)
         
         if(excursionIsInSummary >= 0) {
             alert('Masz już tę wycieczkę w swoim zamówieniu. Proszę wybrać inną.')
-
-            const formElList = e.target.elements;
-            console.log(formElList)
-            formElList[0].value = ''
-            formElList[1].value = ''
+            clearFormFields(targetEl);
         } else if(errors.length > 0) {
             showErrors(errors)
         } else {
-            const formElList = e.target.elements;
-            console.log(formElList)
-            formElList[0].value = ''
-            formElList[1].value = ''
-
             basket.push(data);
-            showBasket(basket);            
+            showBasket(basket);   
+            clearFormFields(targetEl);
         }          
     }) 
 }
 
 function showBasket(basket) {
-    console.log(basket)
-
-    const ulEl = document.querySelector('.panel__summary');
+    const ulEl = findUl('.panel__summary');
     const liPrototype = ulEl.querySelector('.summary__item--prototype');
     
-    const liList = ulEl.querySelectorAll('.summary__item');
-    console.log(liList)
-    const liListArr = Array.prototype.slice.call(liList);
-    liListArr.splice(0, 1);
-    console.log(liListArr)
-    liListArr.forEach(item => ulEl.removeChild(item));
+    clearUl(ulEl);
 
     basket.forEach(item => {
-        const liEl = liPrototype.cloneNode(true);
-        liEl.classList.remove('summary__item--prototype');
-           
-        const liTitle = liEl.querySelector('.summary__name');
-        const liTotalPrice = liEl.querySelector('.summary__total-price');
-        const liSummaryPrices = liEl.querySelector('.summary__prices');
-    
-        liTitle.innerText = item.title;
-        liTotalPrice.innerText = item.totalPrice 
-        liSummaryPrices.innerText = `dorośli: ${item.adultNumber} x ${item.adultPrice}PLN, dzieci: ${item.childNumber} x ${item.childPrice}PLN`
-        liEl.dataset.id = item.id;
-    
-        ulEl.appendChild(liEl) 
-  
+        const liEl = createOrderLi(item, liPrototype)    
+        ulEl.appendChild(liEl)   
     })            
     
     updateTotalPrice(basket);
-        
-        //const formEl = document.querySelector('.form');
-        //const formFields = formEl.querySelectorAll('.form__field');
-        //console.log(formFields);
-        //formFields.forEach(field => field.value = '');
-    //})
 }
 
 function removeItemFromBasket(basket) {
-    const ulEl = document.querySelector('.panel__summary');
+    const ulEl = findUl('.panel__summary');
     ulEl.addEventListener('click', e => {
         e.preventDefault();
-        console.log(e.currentTarget) //ul
         const targetEl = e.target;
         const liEl = targetEl.parentElement.parentElement
         const excursionTitleEl = liEl.querySelector('.summary__name');
         const excursionTitle = excursionTitleEl.innerText
-        console.log(excursionTitle)
-        console.log(targetEl) //a
-        console.log(liEl) //li
 
         const index = basket.findIndex(item => {
             return item.title === excursionTitle;
         });            
-        console.log(index)
 
         if(targetEl.innerText === 'X') {
             basket.splice(index, 1);
-            console.log(basket);
             showBasket(basket);
         }       
     })
@@ -213,61 +125,28 @@ function submitOrder(basket) {
         e.preventDefault()
                 
         const totalPrice = formEl.querySelector('.order__total-price-value');
-        const date = new Date().toLocaleDateString();
-        const time = new Date().toLocaleTimeString();
         const items = basket;
-        console.log(items);
-        
-        console.log(e.target) //form
-        console.log(e.currentTarget) //form
-
-        console.log(e.target.elements)
-        const {name, email} = e.target.elements;
-
-        const order = {
-            name: name.value,  
-            email: email.value,
-            totalPrice: totalPrice.innerText,
-            date: date,
-            time: time,
-            items: items,
-        }
-        console.log(order)
+        const targetEl = e.target;
+        const order = createOrderData(formEl, targetEl, totalPrice, items);
         
         clearErrors()
         let errors = []
-        errors = validateOrderForm(e.target.elements, order)
+        errors = validateOrderForm(targetEl.elements, order)
         
         if(totalPrice.innerText === "0") {
             alert('Nie dodałeś/aś żadnej wycieczki do listy zamówień.')
-
-            const formElList = e.target.elements;
-            console.log(formElList)
-            formElList[0].value = ''
-            formElList[1].value = ''
+            clearFormFields(targetEl);
         } else if(errors.length > 0) {
             showErrors(errors)
         } else {
             alert(`Dziękujemy za złożenie zamówienia o wartości ${order.totalPrice}PLN. Szczegóły zamówienia zostały wysłane na adres e-mail: ${order.email}.`)
 
-            const options = {
-                method: 'POST',
-                body: JSON.stringify(order),
-                headers: {'Content-Type': 'application/json'}
-            };
-            fetch(urlOrders, options)
-                .then(resp => console.log(resp))
+            api.addOrdersData(order)
                 .catch(err => console.error(err))
-
-            //clearContent()
-            
-            const formElList = e.target.elements;
-            console.log(formElList)
-            formElList[0].value = ''
-            formElList[1].value = ''
-
-            basket.length = 0;
-            showBasket(basket);
+    
+            clearFormFields(targetEl);
+            clearBasket(items);
+            showBasket(items);
         } 
     })   
 }
@@ -354,4 +233,100 @@ function clearErrors() {
     errorsMessages.forEach(message => {
         message.parentNode.removeChild(message)
     })
+}
+
+function createExcursionLi(item, liPrototype) {
+    const liEl = liPrototype.cloneNode(true);
+    liEl.classList.remove('excursions__item--prototype');
+
+    const liTitle = liEl.querySelector('.excursions__title');
+    const liDescription = liEl.querySelector('.excursions__description');
+    const liPrice = liEl.querySelectorAll('.excursions__price');
+    const liAdultPrice = liPrice[0];
+    const liChildPrice = liPrice[1];
+
+    liTitle.innerText = item.title;
+    liDescription.innerText = item.description;
+    liAdultPrice.innerText = item.adultPrice;
+    liChildPrice.innerText = item.childPrice;
+    liEl.dataset.id = item.id;
+
+    return liEl;
+}
+
+function createOrderLi(item, liPrototype) {
+    const liEl = liPrototype.cloneNode(true);
+    liEl.classList.remove('summary__item--prototype');
+           
+    const liTitle = liEl.querySelector('.summary__name');
+    const liTotalPrice = liEl.querySelector('.summary__total-price');
+    const liSummaryPrices = liEl.querySelector('.summary__prices');
+    
+    liTitle.innerText = item.title;
+    liTotalPrice.innerText = item.totalPrice 
+    liSummaryPrices.innerText = `dorośli: ${item.adultNumber} x ${item.adultPrice}PLN, dzieci: ${item.childNumber} x ${item.childPrice}PLN`
+    liEl.dataset.id = item.id;
+
+    return liEl;
+}
+
+function createItemData(targetEl) {
+    const liEl = targetEl.parentElement;
+    const liTitle = liEl.querySelector('.excursions__title');
+    const liPrice = liEl.querySelectorAll('.excursions__price');
+    const liAdultPrice = liPrice[0];
+    const liChildPrice = liPrice[1];
+    const adultPrice = liAdultPrice.innerText;
+    const childPrice = liChildPrice.innerText;
+    
+    const {adults, children} = targetEl.elements;
+
+    return {
+        title: liTitle.innerText,  
+        totalPrice: (adults.value*adultPrice) + (children.value*childPrice),
+        adultNumber: Number(adults.value),
+        adultPrice: adultPrice,
+        childNumber: Number(children.value),
+        childPrice: childPrice,
+    }
+}
+
+function createOrderData(formEl, targetEl, totalPrice, items) {    
+    const date = new Date().toLocaleDateString();
+    const time = new Date().toLocaleTimeString();
+    const {name, email} = targetEl.elements;
+
+    return {
+        name: name.value,  
+        email: email.value,
+        totalPrice: totalPrice.innerText,
+        date: date,
+        time: time,
+        items: items,
+    }
+}
+
+function clearUl(ulEl) {
+    const liList = ulEl.querySelectorAll('li');
+    console.log(liList)
+    const liListArr = Array.prototype.slice.call(liList);
+    liListArr.splice(0, 1);
+    console.log(liListArr)
+    liListArr.forEach(item => ulEl.removeChild(item));
+}
+
+function clearFormFields(targetEl) {
+    const formElList = targetEl.elements;
+    console.log(formElList)
+    formElList[0].value = ''
+    formElList[1].value = ''
+}
+
+function clearBasket(basket) {
+    basket.length = 0;
+    return basket;
+}
+
+function findUl(selector) {
+    return document.querySelector(selector)
 }
