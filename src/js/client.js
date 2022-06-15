@@ -84,7 +84,7 @@ function addItemToBasket(basket) {
         const childPrice = liChildPrice.innerText;
         //liEl.dataset.id = item.id;
 
-        console.log(e.target)
+        console.log(e.target) //form
         console.log(e.currentTarget)
 
         console.log(e.target.elements)
@@ -93,20 +93,42 @@ function addItemToBasket(basket) {
         const data = {
             title: liTitle.innerText,  
             totalPrice: (adults.value*adultPrice) + (children.value*childPrice),
-            adultNumber: adults.value,
+            adultNumber: Number(adults.value),
             adultPrice: adultPrice,
-            childNumber: children.value,
+            childNumber: Number(children.value),
             childPrice: childPrice,
         }
         console.log(data)
-        
-        const formElList = e.target.elements;
-        console.log(formElList)
-        formElList[0].value = ''
-        formElList[1].value = ''
 
-        basket.push(data);
-        showBasket(basket);
+        clearErrors()
+        let errors = []
+        errors = validateExcursionsForm(e.target.elements, data)
+        
+        const excursionTitle = liTitle.innerText
+        console.log(excursionTitle)
+        const excursionIsInSummary = basket.findIndex(item => {
+            return item.title === excursionTitle;
+        });      
+        console.log(excursionIsInSummary)
+        
+        if(excursionIsInSummary >= 0) {
+            alert('Masz już tę wycieczkę w swoim zamówieniu. Proszę wybrać inną.')
+
+            const formElList = e.target.elements;
+            console.log(formElList)
+            formElList[0].value = ''
+            formElList[1].value = ''
+        } else if(errors.length > 0) {
+            showErrors(errors)
+        } else {
+            const formElList = e.target.elements;
+            console.log(formElList)
+            formElList[0].value = ''
+            formElList[1].value = ''
+
+            basket.push(data);
+            showBasket(basket);            
+        }          
     }) 
 }
 
@@ -215,14 +237,19 @@ function submitOrder(basket) {
         }
         console.log(order)
         
-        //clearErrorsMessage()
-        //let errors = []
-        //errors = checkOrderFormData(inputName, inputEmail, //inputNameEl, inputEmailEl)
+        clearErrors()
+        let errors = []
+        errors = validateOrderForm(e.target.elements, order)
         
         if(totalPrice.innerText === "0") {
             alert('Nie dodałeś/aś żadnej wycieczki do listy zamówień.')
-        //} else if(errors.length > 0) {
-            //showErrorsMessage(errors)
+
+            const formElList = e.target.elements;
+            console.log(formElList)
+            formElList[0].value = ''
+            formElList[1].value = ''
+        } else if(errors.length > 0) {
+            showErrors(errors)
         } else {
             alert(`Dziękujemy za złożenie zamówienia o wartości ${order.totalPrice}PLN. Szczegóły zamówienia zostały wysłane na adres e-mail: ${order.email}.`)
 
@@ -241,6 +268,93 @@ function submitOrder(basket) {
             console.log(formElList)
             formElList[0].value = ''
             formElList[1].value = ''
+
+            basket.length = 0;
+            showBasket(basket);
         } 
     })   
+}
+
+function Error(field, text) {
+    this.field = field;
+    this.text = text;
+}
+
+function validateExcursionsForm(fields, data) {
+    const errors = [] 
+
+    console.log(fields)
+    const adultField = fields[0];
+    const childField = fields[1];
+
+    const adultNumber = data.adultNumber
+    console.log(adultNumber)
+    const childNumber = data.childNumber
+    console.log(childNumber)
+
+    const regNumber = /^[0-9]+$/
+
+    if(!regNumber.test(adultNumber) || adultNumber < 0) {
+        errors.push(new Error(adultField, 'Pole musi zawierać liczbę.'))
+    } 
+    if(!regNumber.test(childNumber) || childNumber < 0) {
+        errors.push(new Error(childField, 'Pole musi zawierać liczbę.'))
+    }
+    if(adultNumber === 0 && childNumber === 0) {
+        errors.push(new Error(childField, 'Co najmniej jedno z pol musi zawierać liczbę.'))
+    }
+    
+    return errors
+}
+
+function validateOrderForm(fields, data) {
+    const errors = [] 
+
+    console.log(fields)
+    const nameField = fields[0];
+    const emailField = fields[1];
+
+    const name = data.name
+    console.log(name)
+    const email = data.email
+    console.log(email)
+
+    const regName = /^[a-zA-ZąćężźłóńśĄĆĘŻŹŁÓŃŚ \-]+$/;
+    
+    if(!regName.test(name)) {
+        if(name.length === 0) {
+            errors.push(new Error(nameField, 'Pole "Imię i nazwisko" jest wymagane.'))
+        } else {
+            errors.push(new Error(nameField, 'Pole imię i nazwisko może zawierać tylko litery i "-".'))
+        }
+    }
+    
+    if(!email.includes('@')) {
+        if(email.length === 0) {
+            errors.push(new Error(emailField, 'Pole "Email" jest wymagane.'))
+        } else {
+            errors.push(new Error(emailField, 'Email musi zawierać znak "@".'))
+        }
+    }     
+
+    return errors
+}
+
+function showErrors(errors) {
+    console.log(errors)
+    errors.forEach(error => {
+        const pEl = document.createElement('p')
+        pEl.classList.add('error')
+        const errorPreviousEl = error.field
+        console.log(errorPreviousEl)
+        pEl.innerText = error.text
+        errorPreviousEl.after(pEl)
+    })
+}
+
+function clearErrors() {
+    const errorsMessages = document.querySelectorAll('.error')
+    errorsMessages.forEach(message => {
+        message.parentNode.removeChild(message)
+    })
 }

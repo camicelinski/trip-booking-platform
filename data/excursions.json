@@ -1,13 +1,6 @@
 {
   "excursions": [
     {
-      "title": "Zakopane",
-      "description": "Gory, Gobalowka i kuchnia regionalna",
-      "adultPrice": "86",
-      "childPrice": "40",
-      "id": 8
-    },
-    {
       "title": "Warszawa",
       "description": "Zamek Krolewski, Starowka, Muzeum Narodowy i Palac Kultury i Nauki, Lazienki",
       "adultPrice": "120",
@@ -16,7 +9,7 @@
     },
     {
       "title": "Lublin",
-      "description": "Rynek i okolicy, Wolka Lancuchowska",
+      "description": "Rynek i okolicy, Wolka Lancuchowska, gastronomia regionalna",
       "adultPrice": "60",
       "childPrice": "25",
       "id": 10
@@ -27,6 +20,13 @@
       "adultPrice": "90",
       "childPrice": "30",
       "id": 12
+    },
+    {
+      "title": "Krakow",
+      "description": "Wizyta w Wieliczka, Wawel, Mariacki, Rynek i duzo wiecej",
+      "adultPrice": "180",
+      "childPrice": "80",
+      "id": 13
     }
   ],
   "orders": [
@@ -55,6 +55,68 @@
         }
       ],
       "id": 1
+    },
+    {
+      "name": "Paulo Souza",
+      "email": "paulo@gmail.com",
+      "totalPrice": "472",
+      "date": "6/15/2022",
+      "time": "1:40:38 PM",
+      "items": [
+        {
+          "title": "Warszawa",
+          "totalPrice": 300,
+          "adultNumber": "2",
+          "adultPrice": "120",
+          "childNumber": "1",
+          "childPrice": "60"
+        },
+        {
+          "title": "Zakopane",
+          "totalPrice": 172,
+          "adultNumber": "2",
+          "adultPrice": "86",
+          "childNumber": "",
+          "childPrice": "40"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "name": "Ewa Swajda",
+      "email": "ewa@gmail.com",
+      "totalPrice": "290",
+      "date": "6/15/2022",
+      "time": "1:41:25 PM",
+      "items": [
+        {
+          "title": "Lublin",
+          "totalPrice": 290,
+          "adultNumber": "4",
+          "adultPrice": "60",
+          "childNumber": "2",
+          "childPrice": "25"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "name": "Armando Leao",
+      "email": "armando@hotmail.com",
+      "totalPrice": "300",
+      "date": "6/15/2022",
+      "time": "1:42:03 PM",
+      "items": [
+        {
+          "title": "Warszawa",
+          "totalPrice": 300,
+          "adultNumber": "2",
+          "adultPrice": "120",
+          "childNumber": "1",
+          "childPrice": "60"
+        }
+      ],
+      "id": 4
     }
   ]
 }
