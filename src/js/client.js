@@ -13,9 +13,12 @@ function init() {
     console.log('DOM');
 
     loadExcursions();
-    loadOrders();
-    addOrders();
-    removeOrders();
+
+    const basket = []
+    addItemToBasket(basket);    
+    removeItemFromBasket(basket); 
+
+    submitOrder(basket);
 }
 
 function loadExcursions() {
@@ -67,21 +70,7 @@ function showExcursions(excursionsArr) {
     })
 }
 
-function loadOrders() {
-    fetch(urlOrders)
-        .then(resp => {
-            if(resp.ok) { return resp.json() }
-            return Promise.reject(resp);
-        })
-        .then(data => {
-            console.log(data);
-            showOrders(data);
-            updateTotalPrice(data);
-        })
-        .catch(err => console.error(err));
-}
-
-function addOrders() {
+function addItemToBasket(basket) {
     const ulEl = document.querySelector('.panel__excursions');
     ulEl.addEventListener('submit', function(e) {
         e.preventDefault()        
@@ -100,6 +89,7 @@ function addOrders() {
 
         console.log(e.target.elements)
         const {adults, children} = e.target.elements;
+        
         const data = {
             title: liTitle.innerText,  
             totalPrice: (adults.value*adultPrice) + (children.value*childPrice),
@@ -109,29 +99,23 @@ function addOrders() {
             childPrice: childPrice,
         }
         console.log(data)
-
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {'Content-Type': 'application/json'}
-        };
-        fetch(urlOrders, options)
-            .then(resp => console.log(resp))
-            .catch(err => console.error(err))
-            .finally(loadOrders);
         
         const formElList = e.target.elements;
         console.log(formElList)
         formElList[0].value = ''
         formElList[1].value = ''
+
+        basket.push(data);
+        showBasket(basket);
     }) 
 }
 
-function showOrders(ordersArr) {
-    console.log(ordersArr)
+function showBasket(basket) {
+    console.log(basket)
 
     const ulEl = document.querySelector('.panel__summary');
     const liPrototype = ulEl.querySelector('.summary__item--prototype');
+    
     const liList = ulEl.querySelectorAll('.summary__item');
     console.log(liList)
     const liListArr = Array.prototype.slice.call(liList);
@@ -139,57 +123,124 @@ function showOrders(ordersArr) {
     console.log(liListArr)
     liListArr.forEach(item => ulEl.removeChild(item));
 
-    ordersArr.forEach(item => {
+    basket.forEach(item => {
         const liEl = liPrototype.cloneNode(true);
         liEl.classList.remove('summary__item--prototype');
            
         const liTitle = liEl.querySelector('.summary__name');
-        const liTotalPrice = liEl.querySelector('.summay__total-price');
-        const liSummaryPrices = liEl.querySelector('.summary__prices')
+        const liTotalPrice = liEl.querySelector('.summary__total-price');
+        const liSummaryPrices = liEl.querySelector('.summary__prices');
     
         liTitle.innerText = item.title;
-        liTotalPrice.innerText = `${item.totalPrice}PLN` 
+        liTotalPrice.innerText = item.totalPrice 
         liSummaryPrices.innerText = `dorośli: ${item.adultNumber} x ${item.adultPrice}PLN, dzieci: ${item.childNumber} x ${item.childPrice}PLN`
         liEl.dataset.id = item.id;
     
-        ulEl.appendChild(liEl)               
+        ulEl.appendChild(liEl) 
+  
+    })            
+    
+    updateTotalPrice(basket);
         
         //const formEl = document.querySelector('.form');
         //const formFields = formEl.querySelectorAll('.form__field');
         //console.log(formFields);
         //formFields.forEach(field => field.value = '');
-    })
+    //})
 }
 
-function removeOrders() {
+function removeItemFromBasket(basket) {
     const ulEl = document.querySelector('.panel__summary');
     ulEl.addEventListener('click', e => {
         e.preventDefault();
-        console.log(e.currentTarget)
+        console.log(e.currentTarget) //ul
         const targetEl = e.target;
         const liEl = targetEl.parentElement.parentElement
-        console.log(targetEl)
-        console.log(liEl)
+        const excursionTitleEl = liEl.querySelector('.summary__name');
+        const excursionTitle = excursionTitleEl.innerText
+        console.log(excursionTitle)
+        console.log(targetEl) //a
+        console.log(liEl) //li
 
-        const id = liEl.dataset.id;
-        console.log(id)
-        const options = { method: 'DELETE' };
+        const index = basket.findIndex(item => {
+            return item.title === excursionTitle;
+        });            
+        console.log(index)
+
         if(targetEl.innerText === 'X') {
-            fetch(`${urlOrders}/${id}`, options)
-                .then(resp => console.log(resp))
-                .catch(err => console.error(err))
-                .finally(loadOrders);
+            basket.splice(index, 1);
+            console.log(basket);
+            showBasket(basket);
         }       
     })
 }   
 
-function updateTotalPrice(ordersArr) {
-    const totalPriceValue = document.querySelector('.order__total-price-value')
-
+function updateTotalPrice(basket) {
     let sum = 0;
-    ordersArr.forEach(item => {
-        sum = sum + item.totalPrice;
+
+    basket.forEach(item => {
+        const itemPrice = item.totalPrice;
+        sum = sum + itemPrice;
     })
-    
-    totalPriceValue.innerText = `${sum}PLN`
+        
+    const totalPriceValue = document.querySelector('.order__total-price-value')
+    totalPriceValue.innerText = sum
+    return sum;
+}
+
+function submitOrder(basket) {
+    const formEl = document.querySelector('.panel__order')
+    formEl.addEventListener('submit', function(e) {
+        e.preventDefault()
+                
+        const totalPrice = formEl.querySelector('.order__total-price-value');
+        const date = new Date().toLocaleDateString();
+        const time = new Date().toLocaleTimeString();
+        const items = basket;
+        console.log(items);
+        
+        console.log(e.target) //form
+        console.log(e.currentTarget) //form
+
+        console.log(e.target.elements)
+        const {name, email} = e.target.elements;
+
+        const order = {
+            name: name.value,  
+            email: email.value,
+            totalPrice: totalPrice.innerText,
+            date: date,
+            time: time,
+            items: items,
+        }
+        console.log(order)
+        
+        //clearErrorsMessage()
+        //let errors = []
+        //errors = checkOrderFormData(inputName, inputEmail, //inputNameEl, inputEmailEl)
+        
+        if(totalPrice.innerText === "0") {
+            alert('Nie dodałeś/aś żadnej wycieczki do listy zamówień.')
+        //} else if(errors.length > 0) {
+            //showErrorsMessage(errors)
+        } else {
+            alert(`Dziękujemy za złożenie zamówienia o wartości ${order.totalPrice}PLN. Szczegóły zamówienia zostały wysłane na adres e-mail: ${order.email}.`)
+
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(order),
+                headers: {'Content-Type': 'application/json'}
+            };
+            fetch(urlOrders, options)
+                .then(resp => console.log(resp))
+                .catch(err => console.error(err))
+
+            //clearContent()
+            
+            const formElList = e.target.elements;
+            console.log(formElList)
+            formElList[0].value = ''
+            formElList[1].value = ''
+        } 
+    })   
 }

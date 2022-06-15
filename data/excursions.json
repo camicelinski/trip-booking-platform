@@ -31,31 +31,30 @@
   ],
   "orders": [
     {
-      "title": "Zakopane",
-      "totalPrice": 212,
-      "adultNumber": "2",
-      "adultPrice": "86",
-      "childNumber": "1",
-      "childPrice": "40",
-      "id": 7
-    },
-    {
-      "title": "Lublin",
-      "totalPrice": 205,
-      "adultNumber": "3",
-      "adultPrice": "60",
-      "childNumber": "1",
-      "childPrice": "25",
-      "id": 8
-    },
-    {
-      "title": "Warszawa",
-      "totalPrice": 360,
-      "adultNumber": "2",
-      "adultPrice": "120",
-      "childNumber": "2",
-      "childPrice": "60",
-      "id": 9
+      "name": "Camila Montes Celinski",
+      "email": "meuceuestrelado@gmail.com",
+      "totalPrice": "470",
+      "date": "6/15/2022",
+      "time": "1:26:31 PM",
+      "items": [
+        {
+          "title": "Lublin",
+          "totalPrice": 170,
+          "adultNumber": "2",
+          "adultPrice": "60",
+          "childNumber": "2",
+          "childPrice": "25"
+        },
+        {
+          "title": "Warszawa",
+          "totalPrice": 300,
+          "adultNumber": "2",
+          "adultPrice": "120",
+          "childNumber": "1",
+          "childPrice": "60"
+        }
+      ],
+      "id": 1
     }
   ]
 }
