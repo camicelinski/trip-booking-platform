@@ -159,14 +159,11 @@ function Error(field, text) {
 function validateExcursionsForm(fields, data) {
     const errors = [] 
 
-    console.log(fields)
     const adultField = fields[0];
     const childField = fields[1];
 
     const adultNumber = data.adultNumber
-    console.log(adultNumber)
     const childNumber = data.childNumber
-    console.log(childNumber)
 
     const regNumber = /^[0-9]+$/
 
@@ -185,15 +182,12 @@ function validateExcursionsForm(fields, data) {
 
 function validateOrderForm(fields, data) {
     const errors = [] 
-
-    console.log(fields)
+    
     const nameField = fields[0];
     const emailField = fields[1];
 
     const name = data.name
-    console.log(name)
     const email = data.email
-    console.log(email)
 
     const regName = /^[a-zA-ZąćężźłóńśĄĆĘŻŹŁÓŃŚ \-]+$/;
     

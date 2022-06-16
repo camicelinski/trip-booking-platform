@@ -2,23 +2,16 @@
   "excursions": [
     {
       "title": "Warszawa",
-      "description": "Zamek Krolewski, Starowka, Muzeum Narodowy i Palac Kultury i Nauki, Lazienki",
+      "description": "Zamek Krolewski, Starowka, Muzeum Narodowy, Palac Kultury i Nauki, Lazienki Krolewskie",
       "adultPrice": "120",
       "childPrice": "60",
       "id": 9
     },
     {
-      "title": "Lublin",
-      "description": "Rynek i okolicy, Wolka Lancuchowska, gastronomia regionalna",
-      "adultPrice": "50",
-      "childPrice": "30",
-      "id": 10
-    },
-    {
       "title": "Sandomierz",
       "description": "Rynek, Wisla, Wawoz",
       "adultPrice": "90",
-      "childPrice": "30",
+      "childPrice": "40",
       "id": 12
     },
     {
@@ -37,53 +30,60 @@
     },
     {
       "title": "Brazylia",
-      "description": "Rio de Janeiro, Sao Paulo, Foz do Iguacu e praias",
+      "description": "Rio de Janeiro, Sao Paulo, Foz do Iguacu i plazy",
       "adultPrice": "7000",
       "childPrice": "4000",
       "id": 15
+    },
+    {
+      "title": "Argentina",
+      "description": "Patagonia, lodowiec Perito Moreno",
+      "adultPrice": "8000",
+      "childPrice": "5000",
+      "id": 16
     }
   ],
   "orders": [
     {
-      "name": "Camila Montes Celinski",
-      "email": "meuceuestrelado@gmail.com",
-      "totalPrice": "11300",
-      "date": "6/15/2022",
-      "time": "11:27:35 PM",
+      "name": "Mateusz Swajda",
+      "email": "swajda.m@gmail.com",
+      "totalPrice": "310",
+      "date": "6/16/2022",
+      "time": "9:41:21 AM",
       "items": [
         {
-          "title": "Brazylia",
-          "totalPrice": 11000,
-          "adultNumber": 1,
-          "adultPrice": "7000",
+          "title": "Sandomierz",
+          "totalPrice": 310,
+          "adultNumber": 3,
+          "adultPrice": "90",
           "childNumber": 1,
-          "childPrice": "4000"
-        },
-        {
-          "title": "Warszawa",
-          "totalPrice": 300,
-          "adultNumber": 2,
-          "adultPrice": "120",
-          "childNumber": 1,
-          "childPrice": "60"
+          "childPrice": "40"
         }
       ],
       "id": 1
     },
     {
-      "name": "Mateusz Swajda",
-      "email": "swajda.m@gmail.com",
-      "totalPrice": "180",
-      "date": "6/15/2022",
-      "time": "11:27:53 PM",
+      "name": "Camila Montes Celinski",
+      "email": "camicelinski@gmail.com",
+      "totalPrice": "21220",
+      "date": "6/16/2022",
+      "time": "9:42:15 AM",
       "items": [
         {
+          "title": "Argentina",
+          "totalPrice": 21000,
+          "adultNumber": 2,
+          "adultPrice": "8000",
+          "childNumber": 1,
+          "childPrice": "5000"
+        },
+        {
           "title": "Sandomierz",
-          "totalPrice": 180,
+          "totalPrice": 220,
           "adultNumber": 2,
           "adultPrice": "90",
-          "childNumber": 0,
-          "childPrice": "30"
+          "childNumber": 1,
+          "childPrice": "40"
         }
       ],
       "id": 2
