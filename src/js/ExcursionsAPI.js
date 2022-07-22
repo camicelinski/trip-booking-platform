@@ -1,14 +1,15 @@
 class ExcursionsAPI {
     constructor() {
-        this.urlExcursions = 'http://localhost:3000/excursions';
-        this.urlOrders = 'http://localhost:3000/orders';
+        this.host = 'http://localhost:3000'
+        this.urlExcursions = `${this.host}/excursions`;
+        this.urlOrders = `${this.host}/orders`;
     }
 
-    loadExcursionsData() {
+    loadExcursions() {
         return this._fetch();
     }
 
-    addExcursionsData(data) {
+    addExcursions(data) {
             const options = {
                 method: 'POST',
                 body: JSON.stringify(data),
@@ -18,12 +19,12 @@ class ExcursionsAPI {
             return this._fetch(options)
     }
 
-    removeExcursionsData(id) {
+    removeExcursions(id) {
         const options = { method: 'DELETE' };
         return this._fetch(options, `/${id}`);
     }   
 
-    updateExcursionsData(id, data) {
+    updateExcursions(id, data) {
         const options = {
             method: 'PUT',
             body: JSON.stringify(data),
@@ -32,7 +33,7 @@ class ExcursionsAPI {
         return this._fetch(options, `/${id}`);
     }   
 
-    addOrdersData(data) {
+    addOrders(data) {
         const options = {
             method: 'POST',
             body: JSON.stringify(data),
