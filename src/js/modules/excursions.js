@@ -68,17 +68,12 @@ export function updateExcursions() {
         const targetEl = e.target;
         const liEl = findLi(targetEl);
         
-        if(targetEl.value === 'edytuj' || targetEl.value === 'zapisz') {            
-            const editableList = liEl.querySelectorAll('.excursions--editable')
+        if(targetEl.classList.contains('excursions__field-input--update')) {            
+            const editableList = liEl.querySelectorAll('.excursions--editable');
             const isEditable = isItemEditable(editableList);
             if(isEditable) {
                 const id = findId(liEl);
-                const data = {
-                    title: editableList[0].innerText, 
-                    description: editableList[1].innerText,
-                    adultPrice: editableList[2].innerText,
-                    childPrice: editableList[3].innerText,
-                }
+                const data = editExcursionData(editableList)
                 
                 api.updateExcursions(id, data)
                     .catch(err => console.error(err))
@@ -105,14 +100,14 @@ function createExcursionLi(item, liPrototype) {
         const liTitle = liEl.querySelector('.excursions__title');
         const liDescription = liEl.querySelector('.excursions__description');
         const liPrice = liEl.querySelectorAll('.excursions__price');
-        const liAdultPrice = liPrice[0];
-        const liChildPrice = liPrice[1];
+        const [liAdultPrice, liChildPrice] = liPrice
     
-        liTitle.innerText = item.title;
-        liDescription.innerText = item.description;
-        liAdultPrice.innerText = item.adultPrice;
-        liChildPrice.innerText = item.childPrice;
-        liEl.dataset.id = item.id;
+        const {title, description, adultPrice, childPrice, id} = item
+        liTitle.innerText = title;
+        liDescription.innerText = description;
+        liAdultPrice.innerText = adultPrice;
+        liChildPrice.innerText = childPrice;
+        liEl.dataset.id = id;
 
         return liEl;
 }
@@ -122,7 +117,17 @@ function createExcursionData(targetEl) {
     return {
         title: title.value, 
         description: description.value,
-        adultPrice: adultPrice.value,
-        childPrice: childPrice.value,
+        adultPrice: Number(adultPrice.value),
+        childPrice: Number(childPrice.value),
+    };
+}
+
+function editExcursionData(list) {
+    const [title, description, adultPrice, childPrice] = list;
+    return {
+        title: title.innerText, 
+        description: description.innerText,
+        adultPrice: Number(adultPrice.innerText),
+        childPrice: Number(childPrice.innerText),
     };
 }

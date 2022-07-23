@@ -1,7 +1,7 @@
 import ExcursionsAPI from '../ExcursionsAPI';
 
 import { clearUl, clearFormFields, findUl } from './helper'
-import { validateExcursionsForm, validateOrderForm, showErrors, clearErrors } from './validation'
+import { validateExcursionsForm, validateOrderForm, showErrors, clearErrorsMessages } from './validation'
 
 const api = new ExcursionsAPI();
 
@@ -14,9 +14,9 @@ export function addItemToBasket(basket) {
                 
         const data = createItemData(targetEl);
 
-        clearErrors()
+        clearErrorsMessages()
         let errors = []
-        errors = validateExcursionsForm(targetEl.elements, data)
+        errors = validateExcursionsForm(targetEl, data)
         
         const excursionTitle = data.title
         const excursionIsInSummary = basket.findIndex(item => {
@@ -96,9 +96,9 @@ export function submitOrder(basket) {
         const targetEl = e.target;
         const order = createOrderData(formEl, targetEl, totalPrice, items);
         
-        clearErrors()
+        clearErrorsMessages()
         let errors = []
-        errors = validateOrderForm(targetEl.elements, order)
+        errors = validateOrderForm(targetEl, order)
         
         const [name, email] = targetEl.elements
         const fieldsToClear = [name, email] 
@@ -141,8 +141,9 @@ function createItemData(targetEl) {
     const liEl = targetEl.parentElement;
     const liTitle = liEl.querySelector('.excursions__title');
     const liPrice = liEl.querySelectorAll('.excursions__price');
-    const liAdultPrice = liPrice[0];
-    const liChildPrice = liPrice[1];
+    const [liAdultPrice, liChildPrice] = liPrice
+    //const liAdultPrice = liPrice[0];
+    //const liChildPrice = liPrice[1];
     const adultPrice = liAdultPrice.innerText;
     const childPrice = liChildPrice.innerText;
     
@@ -150,11 +151,11 @@ function createItemData(targetEl) {
 
     return {
         title: liTitle.innerText,  
-        totalPrice: (adults.value*adultPrice) + (children.value*childPrice),
+        totalPrice: Number((adults.value*adultPrice) + (children.value*childPrice)),
         adultNumber: Number(adults.value),
-        adultPrice: adultPrice,
+        adultPrice: Number(adultPrice),
         childNumber: Number(children.value),
-        childPrice: childPrice,
+        childPrice: Number(childPrice),
     }
 }
 
@@ -166,7 +167,7 @@ function createOrderData(formEl, targetEl, totalPrice, items) {
     return {
         name: name.value,  
         email: email.value,
-        totalPrice: totalPrice.innerText,
+        totalPrice: Number(totalPrice.innerText),
         date: date,
         time: time,
         items: items,

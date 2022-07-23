@@ -15,10 +15,10 @@
       "id": 12
     },
     {
-      "title": "Krakow",
+      "title": "Kraków",
       "description": "Wizyta w Wieliczka, Wawel, Mariacki, Rynek i duzo wiecej",
-      "adultPrice": "180",
-      "childPrice": "90",
+      "adultPrice": 190,
+      "childPrice": 90,
       "id": 13
     },
     {
@@ -36,11 +36,25 @@
       "id": 15
     },
     {
-      "title": "Argentina",
+      "title": "Argentyna",
       "description": "Patagonia, lodowiec Perito Moreno",
-      "adultPrice": "8000",
-      "childPrice": "5000",
+      "adultPrice": 8000,
+      "childPrice": 5000,
       "id": 16
+    },
+    {
+      "title": "Paryz",
+      "description": "Francuska stolica",
+      "adultPrice": 900,
+      "childPrice": 350,
+      "id": 17
+    },
+    {
+      "title": "Grecja",
+      "description": "Ateny i wyspy",
+      "adultPrice": 3000,
+      "childPrice": 1200,
+      "id": 19
     }
   ],
   "orders": [
@@ -167,6 +181,176 @@
         }
       ],
       "id": 6
+    },
+    {
+      "name": "Camila Montes Celinski",
+      "email": "carraci@hotmail.com",
+      "totalPrice": "1900",
+      "date": "7/22/2022",
+      "time": "11:10:38 PM",
+      "items": [
+        {
+          "title": "Paris",
+          "totalPrice": 1900,
+          "adultNumber": 2,
+          "adultPrice": 800,
+          "childNumber": 1,
+          "childPrice": 300
+        }
+      ],
+      "id": 7
+    },
+    {
+      "name": "Mateusz Swajda",
+      "email": "swajda.m@gmail.com",
+      "totalPrice": "26000",
+      "date": "7/22/2022",
+      "time": "11:11:37 PM",
+      "items": [
+        {
+          "title": "Brazylia",
+          "totalPrice": 26000,
+          "adultNumber": 2,
+          "adultPrice": 7000,
+          "childNumber": 3,
+          "childPrice": 4000
+        }
+      ],
+      "id": 8
+    },
+    {
+      "name": "Ewa Justyna",
+      "email": "ewa_00@poczta.pl",
+      "totalPrice": 440,
+      "date": "7/22/2022",
+      "time": "11:13:03 PM",
+      "items": [
+        {
+          "title": "Sandomierz",
+          "totalPrice": 440,
+          "adultNumber": 4,
+          "adultPrice": 100,
+          "childNumber": 1,
+          "childPrice": 40
+        }
+      ],
+      "id": 9
+    },
+    {
+      "name": "Camila Montes Celinski",
+      "email": "meuceuestrelado@gmail.com",
+      "totalPrice": 790,
+      "date": "7/23/2022",
+      "time": "2:56:00 PM",
+      "items": [
+        {
+          "title": "Sandomierz",
+          "totalPrice": 790,
+          "adultNumber": 7,
+          "adultPrice": 90,
+          "childNumber": 4,
+          "childPrice": 40
+        }
+      ],
+      "id": 10
+    },
+    {
+      "name": "j",
+      "email": "k",
+      "totalPrice": 360,
+      "date": "7/23/2022",
+      "time": "5:10:28 PM",
+      "items": [
+        {
+          "title": "Sandomierz",
+          "totalPrice": 360,
+          "adultNumber": 4,
+          "adultPrice": 90,
+          "childNumber": 0,
+          "childPrice": 40
+        }
+      ],
+      "id": 11
+    },
+    {
+      "name": "Camila Montes Celinski",
+      "email": "carraci@hotmail.com",
+      "totalPrice": 180,
+      "date": "7/23/2022",
+      "time": "5:17:08 PM",
+      "items": [
+        {
+          "title": "Sandomierz",
+          "totalPrice": 180,
+          "adultNumber": 2,
+          "adultPrice": 90,
+          "childNumber": 0,
+          "childPrice": 40
+        }
+      ],
+      "id": 12
+    },
+    {
+      "name": "Zwiedzanie Lublina",
+      "email": "swajda.m@gmail.com",
+      "totalPrice": 200,
+      "date": "7/23/2022",
+      "time": "5:17:22 PM",
+      "items": [
+        {
+          "title": "Sandomierz",
+          "totalPrice": 200,
+          "adultNumber": 0,
+          "adultPrice": 90,
+          "childNumber": 5,
+          "childPrice": 40
+        }
+      ],
+      "id": 13
+    },
+    {
+      "name": "kl",
+      "email": "camicelinski@gmail.com",
+      "totalPrice": 3960,
+      "date": "7/23/2022",
+      "time": "5:25:30 PM",
+      "items": [
+        {
+          "title": "Sandomierz",
+          "totalPrice": 3960,
+          "adultNumber": 0,
+          "adultPrice": 90,
+          "childNumber": 99,
+          "childPrice": 40
+        }
+      ],
+      "id": 14
+    },
+    {
+      "name": "DFGH",
+      "email": "swajda.m@gmail.com",
+      "totalPrice": 1080,
+      "date": "7/23/2022",
+      "time": "5:26:52 PM",
+      "items": [
+        {
+          "title": "Sandomierz",
+          "totalPrice": 180,
+          "adultNumber": 2,
+          "adultPrice": 90,
+          "childNumber": 0,
+          "childPrice": 40
+        },
+        {
+          "title": "Warszawa",
+          "totalPrice": 900,
+          "adultNumber": 7,
+          "adultPrice": 120,
+          "childNumber": 1,
+          "childPrice": 60
+        }
+      ],
+      "id": 15
     }
   ]
 }
