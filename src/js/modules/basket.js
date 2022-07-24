@@ -1,7 +1,8 @@
 import ExcursionsAPI from '../ExcursionsAPI';
 
-import { clearUl, clearFormFields, findUl } from './helper'
+import { clearUl, clearFormFields, findUl, isMediaMobile } from './helper'
 import { validateExcursionsForm, validateOrderForm, showErrors, clearErrorsMessages } from './validation'
+import { toggleAddingItem, toggleRemovingItem, toggleSubmit } from './toggle';
 
 const api = new ExcursionsAPI();
 
@@ -34,7 +35,7 @@ export function addItemToBasket(basket) {
         } else {
             basket.push(data);
             showBasket(basket);   
-            clearFormFields(fieldsToClear);
+            clearFormFields(fieldsToClear);           
         }          
     }) 
 }
@@ -51,6 +52,12 @@ function showBasket(basket) {
     })            
     
     updateTotalPrice(basket);
+
+    const isMobile = isMediaMobile()
+    if(isMobile) {
+        const toggler = document.querySelector('.hamburger') 
+        toggleAddingItem(toggler, ulEl)
+    }
 }
 
 export function removeItemFromBasket(basket) {
@@ -70,6 +77,11 @@ export function removeItemFromBasket(basket) {
             basket.splice(index, 1);
             showBasket(basket);
         }       
+
+        const isMobile = isMediaMobile()
+        if(isMobile) {
+            toggleRemovingItem(ulEl)
+        }
     })
 }   
 
@@ -117,6 +129,13 @@ export function submitOrder(basket) {
             clearFormFields(fieldsToClear);
             clearBasket(items);
             showBasket(items);
+            
+            const isMobile = isMediaMobile()
+            if(isMobile) {
+                const panelOrder = document.querySelector('.panel__order')
+                const panelSummary = document.querySelector('.summary')
+                toggleSubmit(panelOrder, panelSummary)
+            }
         } 
     })   
 }
@@ -131,7 +150,7 @@ function createOrderLi(item, liPrototype) {
     
     liTitle.innerText = item.title;
     liTotalPrice.innerText = item.totalPrice 
-    liSummaryPrices.innerText = `dorośli: ${item.adultNumber} x ${item.adultPrice}PLN, dzieci: ${item.childNumber} x ${item.childPrice}PLN`
+    liSummaryPrices.innerText = `dorośli: ${item.adultNumber} x ${item.adultPrice}PLN, \ndzieci: ${item.childNumber} x ${item.childPrice}PLN`
     liEl.dataset.id = item.id;
 
     return liEl;

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JavaScript: API oraz FETCH - client, devmentor.pl</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lato&subset=latin,latin-ext:wght@400;700&display=swap" rel="stylesheet">   
 </head>
 <body>
 
@@ -42,26 +44,36 @@
         </ul>
         <section class="panel__form">
             <form class="panel__order order" novalidate>
-                <div class="order__total-price">
-                    Razem:
-                    <span class="order__total-price-value">0</span>PLN
+                <div class="order__userdata">
+                    <div class="order__field order__field-userdata">
+                        <label class="order__field-name">
+                            Imię i nazwisko: 
+                        </label>
+                        <input class="order__field-input" name="name" />
+                    </div>
+                    <div class="order__field order__field-userdata">
+                        <label class="order__field-name">
+                            Email: 
+                        </label>
+                        <input class="order__field-input" name="email" />
+                    </div>
                 </div>
-                <div class="order__field">
-                    <label class="order__field-name">
-                        Imię i nazwisko: <input class="order__field-input" name="name" />
-                    </label>
-                </div>
-                <div class="order__field">
-                    <label class="order__field-name">
-                        Email: <input class="order__field-input" name="email" />
-                    </label>
-                </div>
-                <div class="order__field order__field--submit">
-                    <input 
-                        class="order__field-input order__field-submit" 
-                        value="zamawiam"
-                        type="submit"
-                    />
+                <div class="order__container">
+                    <div class="order__total-price">
+                        suma:
+                        <span class="order__total-price-value">0</span>PLN
+                    </div>
+                    <button class="toggler">
+                        <span class="open-userdata">Przejdź do finalizacji zamówienia</span>
+                        <span class="close-userdata">Wróć</span>
+                    </button>
+                    <div class="order__field order__field--submit">
+                        <input 
+                            class="order__field-input order__field-submit" 
+                            value="zamawiam"
+                            type="submit"
+                        />
+                    </div>
                 </div>
             </form>
             <ul class="panel__summary summary">
@@ -74,6 +86,10 @@
                     <p class="summary__prices">dorośli: 1 x 99PLN, dzieci: 2 x 50PLN</p>
                 </li>
             </ul>
+            <button class="hamburger">
+                <span class="open-summary">Zobacz koszyk</span>
+                <span class="close-summary">></span>
+            </button>
         </section>
     </section>
 </body>

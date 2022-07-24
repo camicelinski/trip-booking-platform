@@ -30,3 +30,8 @@ export function isItemEditable(editableList) {
 
     return isEditable;
 }
+
+export function isMediaMobile() {
+    const isMobile = !window.matchMedia('only screen and (min-width: 768px)').matches
+    return isMobile
+}

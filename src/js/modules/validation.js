@@ -97,6 +97,7 @@ export function showErrors(errors) {
         const pEl = document.createElement('p')
         pEl.classList.add('error')
         const errorPreviousEl = error.field
+        errorPreviousEl.classList.add('error-input')
         pEl.innerText = error.text
         errorPreviousEl.after(pEl)
     })
@@ -106,5 +107,10 @@ export function clearErrorsMessages() {
     const errorsMessages = document.querySelectorAll('.error')
     errorsMessages.forEach(message => {
         message.parentNode.removeChild(message)
+    })
+
+    const errorsFields = document.querySelectorAll('.error-input')
+    errorsFields.forEach(function(item) {
+        item.classList.remove('error-input')
     })
 }

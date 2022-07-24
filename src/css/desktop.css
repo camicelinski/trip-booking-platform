@@ -1,0 +1,33 @@
+@media (min-width: 1024px) {
+    .excursions__form {
+        text-align: center;
+    }
+    
+    .order__userdata { 
+        font-size: 1.1rem;
+    }
+    
+    .order__total-price {
+        font-size: 1.1rem;
+    }
+    
+    .order__total-price-value {
+        font-size: 1.6rem;
+    }
+    
+    .order__field--submit {
+        font-size: 1.2rem;
+    }
+    
+    .summary__title {
+        font-size: 1.2rem;
+    }
+    
+    .summary__prices {
+        font-size: 1rem;
+    }
+    
+    .summary__btn-remove {
+        font-size: .8rem;
+    }    
+}
