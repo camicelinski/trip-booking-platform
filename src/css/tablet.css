@@ -50,7 +50,40 @@
         margin: 20px 20px 20px 0;
         border-radius: 5px;
     }
+
+    .form__row {
+        display: block;  
+        padding-bottom: 5px;      
+    }
+
+    .form__field {
+        margin-top: 5px;
+        background-color: var(--order-input);    
+        width: 100%;
+    }
+
+    .form__field--longtext {
+        font-size: 1rem;
+        height: 240px;
+        padding: 10px;
+        font-family: 'Lato', sans-serif;
+    }
     
+    .form__row-price {
+        display: block;
+    }
+    
+    .form__row-price .form__row {
+        display: flex;
+        width: 100%;
+        padding-bottom: 10px;
+    }
+
+    .form__row-price .form__field {
+        margin-top: 0;
+        height: auto;
+    }
+
     .order {
         display: block;
     }
@@ -107,7 +140,6 @@
     .summary__title {
         display: flex;
         justify-content: space-between;
-        /*flex-wrap: wrap;    */
         text-align: right;
     }
 

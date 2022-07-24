@@ -20,6 +20,13 @@ body {
     background-color: var(--bg);
 }
 
+h1 {
+    margin: 20px 20px -10px;
+    padding: 0 5px;
+    font-size: 1.2rem;
+    font-weight: bold;  
+}
+
 ul {
     list-style: none;
 }
@@ -54,7 +61,8 @@ input {
 }
 
 .excursions__field-input,
-.order__field-input {
+.order__field-input,
+.form__field {
     border: none;
     border-radius: 5px;
     outline: none;
@@ -75,7 +83,6 @@ li,
 .order {
     display: none;
     border-top: 1px solid var(--order-input);
-    /*margin-top: 5px;*/
     padding-top: 10px;
     border-bottom: 1px solid var(--order-input);
     padding-bottom: 10px;

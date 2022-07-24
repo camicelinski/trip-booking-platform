@@ -1,4 +1,3 @@
-//import './../css/client.css';
 import './../css/reset.css';
 import './../css/global.css';
 import './../css/mobile.css';
@@ -23,16 +22,3 @@ function init() {
 
     submitOrder(basket);
 }
-
-//admin
-//function clearFormFields(formEl) {
-//    const formFields = formEl.querySelectorAll('.form__field');
-//    formFields.forEach(field => field.value = '');
-//}
-
-//client
-//function clearFormFields(targetEl) {
-//    const formElList = targetEl.elements;
-//    formElList[0].value = ''
-//    formElList[1].value = ''
-//}

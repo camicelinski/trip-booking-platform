@@ -161,8 +161,6 @@ function createItemData(targetEl) {
     const liTitle = liEl.querySelector('.excursions__title');
     const liPrice = liEl.querySelectorAll('.excursions__price');
     const [liAdultPrice, liChildPrice] = liPrice
-    //const liAdultPrice = liPrice[0];
-    //const liChildPrice = liPrice[1];
     const adultPrice = liAdultPrice.innerText;
     const childPrice = liChildPrice.innerText;
     

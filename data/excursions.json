@@ -1,13 +1,6 @@
 {
   "excursions": [
     {
-      "title": "Warszawa",
-      "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium possimus deleniti veritatis similique asperiores corporis voluptas totam explicabo voluptatem, adipisci saepe nostrum magni doloribus reiciendis, fuga amet sunt quis ad.",
-      "adultPrice": 140,
-      "childPrice": 65,
-      "id": 9
-    },
-    {
       "title": "Sandomierz",
       "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium possimus deleniti veritatis similique asperiores corporis voluptas totam explicabo voluptatem, adipisci saepe nostrum magni doloribus reiciendis, fuga amet sunt quis ad.",
       "adultPrice": 100,

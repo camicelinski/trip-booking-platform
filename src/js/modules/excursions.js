@@ -74,6 +74,8 @@ export function updateExcursions() {
             if(isEditable) {
                 const id = findId(liEl);
                 const data = editExcursionData(editableList)
+
+                editableList.forEach(item => item.classList.remove('editable'))
                 
                 api.updateExcursions(id, data)
                     .catch(err => console.error(err))
@@ -86,7 +88,10 @@ export function updateExcursions() {
             } else {
                 targetEl.value = 'zapisz';
                 editableList.forEach(
-                    item => item.contentEditable = true
+                    item => {
+                        item.contentEditable = true
+                        item.classList.add('editable')
+                    }
                 );
             }
         }

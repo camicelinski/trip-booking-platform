@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JavaScript: API oraz FETCH - admin, devmentor.pl</title>
-    
-    <!--<link rel="stylesheet" href="./css/admin.css">-->
-    
+
+    <link href="https://fonts.googleapis.com/css2?family=Lato&subset=latin,latin-ext:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>Panel administratora</h1>
@@ -46,27 +45,33 @@
                 </form>
             </li>
         </ul>
-        <section>
+        <section class="panel__form">
             <form class="form" novalidate>
                 <div class="form__row">
                     <label class="form__label">
-                        Nazwa:<input class="form__field" name="title" />
+                        Nazwa:
                     </label>
+                    <input class="form__field" name="title" />
                 </div>
                 <div class="form__row">
                     <label class="form__label">
-                        Opis:<textarea class="form__field form__field--longtext" name="description"></textarea>
+                        Opis:
                     </label>
+                    <textarea class="form__field form__field--longtext" name="description"></textarea>
                 </div>
-                <div class="form__row">
-                    <label class="form__label">
-                        Cena dorosły:<input class="form__field" type="number" name="adultPrice" />
-                    </label>
-                </div>
-                <div class="form__row">
-                    <label class="form__label">
-                        Cena dziecko:<input class="form__field" type="number" name="childPrice" />
-                    </label>
+                <div class="form__row-price">
+                    <div class="form__row">
+                        <label class="form__label">
+                            Cena dorosły:
+                        </label>
+                        <input class="form__field" type="number" name="adultPrice" />
+                    </div>
+                    <div class="form__row">
+                        <label class="form__label">
+                            Cena dziecko:
+                        </label>
+                        <input class="form__field" type="number" name="childPrice" />
+                    </div>
                 </div>
                 <div class="form__field--submit">
                     <input 
@@ -75,12 +80,8 @@
                         type="submit"
                     />
                 </div>
-            </form>
-           
+            </form>           
         </section>
     </section>
-
-    <!--<script src="./js/admin.js"></script>-->
-
 </body>
 </html>
